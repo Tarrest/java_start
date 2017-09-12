@@ -10,6 +10,16 @@ public class MyFirstProgram {
         double a1 = 5;
         double b1 = 7;
         System.out.println(area(a1,b1));
+
+        //выполняем функцию через обект s класса Square
+        Square s = new Square();
+        s.l = 6;
+        System.out.println("квадрат со стороной " + s.l + " равен " + area(s));
+
+        Rectagular r = new Rectagular();
+        r.a = 9;
+        r.b = 10;
+        System.out.println("прямоугольник со сторонами "+ r.a + " и " + r.b + " равен " + area(r));
     }
 
     public static void hello() {
@@ -20,13 +30,22 @@ public class MyFirstProgram {
         System.out.println("Hello, " + smth);
     }
 
-    public static double area(double l) {
-        return l*l;
+    public static double area(double len){
+        return len*len;
+    }
+
+    public static double area(Square s) {
+        return s.l*s.l;
     }
 
     public static double area(double a, double b) {
         return a*b;
     }
+
+    public static double area(Rectagular r) {
+        return r.a*r.b;
+    }
+
 
 
 
