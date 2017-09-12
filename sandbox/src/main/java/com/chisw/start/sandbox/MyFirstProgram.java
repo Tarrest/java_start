@@ -12,13 +12,10 @@ public class MyFirstProgram {
         System.out.println(area(a1,b1));
 
         //выполняем функцию через обект s класса Square
-        Square s = new Square();
-        s.l = 6;
+        Square s = new Square(90);
         System.out.println("квадрат со стороной " + s.l + " равен " + area(s));
 
-        Rectagular r = new Rectagular();
-        r.a = 9;
-        r.b = 10;
+        Rectagular r = new Rectagular(70, 75);
         System.out.println("прямоугольник со сторонами "+ r.a + " и " + r.b + " равен " + area(r));
     }
 

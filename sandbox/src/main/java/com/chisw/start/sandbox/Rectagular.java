@@ -5,4 +5,9 @@ public class Rectagular {
     public double a;
     public double b;
 
+    public Rectagular(double a, double b) {
+        this.a = a;
+        this.b = b;
+    }
+
 }
