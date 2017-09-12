@@ -13,12 +13,13 @@ public class MyFirstProgram {
 
         //выполняем функцию через обект s класса Square
         Square s = new Square(90);
-        System.out.println("квадрат со стороной " + s.l + " равен " + area(s));
+        System.out.println("квадрат со стороной " + s.l + " равен " + s.area());
 
         Rectagular r = new Rectagular(70, 75);
-        System.out.println("прямоугольник со сторонами "+ r.a + " и " + r.b + " равен " + area(r));
+        System.out.println("прямоугольник со сторонами "+ r.a + " и " + r.b + " равен " + r.area());
     }
 
+    //функция, которая может быть вызвана без создания класса
     public static void hello() {
         System.out.println("Hello, " + "World2!");
     }
@@ -31,16 +32,8 @@ public class MyFirstProgram {
         return len*len;
     }
 
-    public static double area(Square s) {
-        return s.l*s.l;
-    }
-
     public static double area(double a, double b) {
         return a*b;
-    }
-
-    public static double area(Rectagular r) {
-        return r.a*r.b;
     }
 
 
