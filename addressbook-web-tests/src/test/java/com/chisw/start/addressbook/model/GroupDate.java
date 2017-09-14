@@ -1,4 +1,4 @@
-package com.chisw.start.addressbook;
+package com.chisw.start.addressbook.model;
 
 public class GroupDate {
     private final String name;

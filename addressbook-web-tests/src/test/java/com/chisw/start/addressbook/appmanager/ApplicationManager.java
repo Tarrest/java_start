@@ -1,20 +1,18 @@
-package com.chisw.start.addressbook;
+package com.chisw.start.addressbook.appmanager;
 
+import com.chisw.start.addressbook.model.GroupDate;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.*;
+public class ApplicationManager {
 
-public class GroupCreationTest {
     WebDriver driver;
 
-    @BeforeMethod
-    public void setup() {
+    public void init() {
         DesiredCapabilities capabilitiesFirefox = new DesiredCapabilities();
         capabilitiesFirefox.setCapability("marionette", true);
         System.setProperty("webdriver.gecko.driver", "c:\\Geckodriver\\geckodriver.exe");
@@ -31,21 +29,14 @@ public class GroupCreationTest {
         driver.findElement(By.name("pass")).click();
         driver.findElement(By.name("pass")).clear();
         driver.findElement(By.name("pass")).sendKeys(password);
-        driver.findElement(By.id("LoginForm")).click();
+        driver.findElement(By.xpath(".//*[@id='LoginForm']/input[3]")).click();
     }
 
-    @Test
-    public void testGroupCreation() {
-        createNewGroup();
-        fillAndSubmitGroupForm(new GroupDate("Evan Warner", "test1", "test2"));
-        returnToGroupPage();
-    }
-
-    private void returnToGroupPage() {
+    public void goToGroupPage() {
         driver.findElement(By.linkText("GROUPS")).click();
     }
 
-    private void fillAndSubmitGroupForm(GroupDate groupDate) {
+    public void fillAndSubmitGroupForm(GroupDate groupDate) {
         driver.findElement(By.name("group_name")).click();
         driver.findElement(By.name("group_name")).clear();
         driver.findElement(By.name("group_name")).sendKeys(groupDate.getName());
@@ -56,18 +47,24 @@ public class GroupCreationTest {
         driver.findElement(By.name("group_footer")).clear();
         driver.findElement(By.name("group_footer")).sendKeys(groupDate.getFooter());
         driver.findElement(By.name("submit")).click();
+        //driver.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
-    private void createNewGroup() {
-        driver.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+    public void createNewGroup() {
         driver.findElement(By.linkText("GROUPS")).click();
         driver.findElement(By.name("new")).click();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
-    @AfterMethod
-    public void tearDown() {
+    public void stop() {
         driver.close();
     }
 
+    public void deleteSelectedGroups() {
+        driver.findElement(By.name("delete")).click();
+    }
+
+    public void selectGroup() {
+        driver.findElement(By.name("selected[]")).click();
+    }
 }
