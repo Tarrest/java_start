@@ -1,3 +1,5 @@
+package com.chisw.start.addressbook;
+
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
@@ -35,7 +37,7 @@ public class GroupCreationTest {
     @Test
     public void testGroupCreation() {
         createNewGroup();
-        fillAndSubmitGroupForm("Evan Warner", "test1", "test2");
+        fillAndSubmitGroupForm(new GroupDate("Evan Warner", "test1", "test2"));
         returnToGroupPage();
     }
 
@@ -43,16 +45,16 @@ public class GroupCreationTest {
         driver.findElement(By.linkText("GROUPS")).click();
     }
 
-    private void fillAndSubmitGroupForm(String name, String header, String footer) {
+    private void fillAndSubmitGroupForm(GroupDate groupDate) {
         driver.findElement(By.name("group_name")).click();
         driver.findElement(By.name("group_name")).clear();
-        driver.findElement(By.name("group_name")).sendKeys(name);
+        driver.findElement(By.name("group_name")).sendKeys(groupDate.getName());
         driver.findElement(By.name("group_header")).click();
         driver.findElement(By.name("group_header")).clear();
-        driver.findElement(By.name("group_header")).sendKeys(header);
+        driver.findElement(By.name("group_header")).sendKeys(groupDate.getHeader());
         driver.findElement(By.name("group_footer")).click();
         driver.findElement(By.name("group_footer")).clear();
-        driver.findElement(By.name("group_footer")).sendKeys(footer);
+        driver.findElement(By.name("group_footer")).sendKeys(groupDate.getFooter());
         driver.findElement(By.name("submit")).click();
     }
 
@@ -65,7 +67,7 @@ public class GroupCreationTest {
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        driver.close();
     }
 
 }
