@@ -1,4 +1,5 @@
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -24,6 +25,10 @@ public class GroupCreationTest {
         driver = new FirefoxDriver(capabilitiesFirefox);
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.get("http://localhost/addressbook/");
+        login();
+    }
+
+    private void login() {
         driver.findElement(By.name("user")).click();
         driver.findElement(By.name("user")).clear();
         driver.findElement(By.name("user")).sendKeys("admin");
@@ -32,13 +37,19 @@ public class GroupCreationTest {
         driver.findElement(By.name("pass")).sendKeys("secret");
         driver.findElement(By.id("LoginForm")).click();
     }
-    
+
     @Test
     public void testGroupCreation() {
-        driver.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+        createNewGroup();
+        fillAndSubmitGroupForm();
+        checkGroupCreation();
+    }
+
+    private void checkGroupCreation() {
         driver.findElement(By.linkText("GROUPS")).click();
-        driver.findElement(By.name("new")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+    }
+
+    private void fillAndSubmitGroupForm() {
         driver.findElement(By.name("group_name")).click();
         driver.findElement(By.name("group_name")).clear();
         driver.findElement(By.name("group_name")).sendKeys("Evan Warner");
@@ -49,7 +60,18 @@ public class GroupCreationTest {
         driver.findElement(By.name("group_footer")).clear();
         driver.findElement(By.name("group_footer")).sendKeys("test2");
         driver.findElement(By.name("submit")).click();
+    }
+
+    private void createNewGroup() {
+        driver.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
         driver.findElement(By.linkText("GROUPS")).click();
+        driver.findElement(By.name("new")).click();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.quit();
     }
 
 }
