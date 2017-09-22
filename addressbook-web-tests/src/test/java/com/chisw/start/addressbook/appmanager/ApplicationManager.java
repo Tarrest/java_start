@@ -1,9 +1,12 @@
 package com.chisw.start.addressbook.appmanager;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import javax.security.auth.login.Configuration;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -14,10 +17,13 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
 
     public void init() {
+
         DesiredCapabilities capabilitiesFirefox = new DesiredCapabilities();
         capabilitiesFirefox.setCapability("marionette", true);
         System.setProperty("webdriver.gecko.driver", "c:\\Geckodriver\\geckodriver.exe");
         driver = new FirefoxDriver(capabilitiesFirefox);
+        
+
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(driver);
